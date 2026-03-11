@@ -2,63 +2,9 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <string>
+#include "convert_helpers.hpp"
 
-std::string formatFloat(float num)
-{
-	std::ostringstream oss;
-	oss << std::setprecision(10) << num;
-	std::string result = oss.str();
-
-	if (result.find('.') == std::string::npos)
-		result.append(".0");
-	result.append("f");
-	return result;
-}
-
-std::string formatDouble(double num)
-{
-	std::ostringstream oss;
-	oss << std::setprecision(10) << num;
-	std::string result = oss.str();
-
-	if (result.find('.') == std::string::npos)
-		result.append(".0");
-	return result;
-}
-
-bool convertChar(std::string str)
-{
-	if (str.length() != 3)
-		return false;
-	if (str[0] != '\'' || str[2] != '\'')
-		return false;
-	if (!std::isprint(str[1]))
-		return false;
-	char c = str[1];
-	std::cout << "char: " << c << std::endl;
-	std::cout << "int: " << static_cast<int>(c) << std::endl;
-	std::cout << "float: " << formatFloat(static_cast<float>(c)) << std::endl;
-	std::cout << "double: " << formatDouble(static_cast<double>(c)) << std::endl;
-	return true;
-}
-
-bool convertInt(std::string str)
-{
-	(void)str;
-	return false;
-}
-
-bool convertFloat(std::string str)
-{
-	(void)str;
-	return false;
-}
-
-bool convertDouble(std::string str)
-{
-	(void)str;
-	return false;
-}
 
 ScalarConverter::ScalarConverter() {}
 
@@ -78,9 +24,14 @@ ScalarConverter::~ScalarConverter() {}
 
 void ScalarConverter::convert(std::string str)
 {
-	if (convertChar(str) || convertInt(str) || convertFloat(str) || convertDouble(str))
+	std::string trimmedStr = trim(str);
+
+	if (trimmedStr.length() == 0)
+		std::cerr << "Error converting input." << std::endl;
+
+	if (convertChar(trimmedStr) || convertInt(trimmedStr) || convertFloat(trimmedStr) || convertDouble(trimmedStr))
 		return;
 	else
-		std::cout << "Error converting input." << std::endl;
+		std::cerr << "Error converting input." << std::endl;
 }
 

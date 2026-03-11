@@ -4,7 +4,8 @@ CPPFLAGS = -Wall -Werror -Wextra -MMD -std=c++20
 
 BUILD_DIR = build
 SRC =	main.cpp \
-		ScalarConverter.cpp
+		ScalarConverter.cpp \
+		convert_helpers.cpp
 OBJ = $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(SRC))
 DEP = ${OBJ:.o=.d}
 
