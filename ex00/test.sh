@@ -36,7 +36,7 @@ declare -A EXPECTED
 
 # Char literal tests
 EXPECTED["'a'"]=$'char: \'a\'\nint: 97\nfloat: 97.0f\ndouble: 97.0'
-EXPECTED["'0'"]=$'char: \'a\'\nint: 48\nfloat: 48.0f\ndouble: 48.0'
+EXPECTED["'0'"]=$'char: \'0\'\nint: 48\nfloat: 48.0f\ndouble: 48.0'
 EXPECTED["a"]=$'Error converting input.'
 
 # Integer tests
