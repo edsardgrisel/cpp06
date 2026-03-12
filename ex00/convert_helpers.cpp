@@ -1,6 +1,7 @@
-#include <iostream>
 #include <sstream>
+#include <iostream>
 #include <iomanip>
+#include <string>
 
 static std::string formatFloat(float num)
 {
@@ -81,12 +82,112 @@ bool convertInt(std::string str)
 
 bool convertFloat(std::string str)
 {
-	(void)str;
-	return false;
+	bool isLeft = false;
+	bool isRight = false;
+	bool isDot = false;
+	bool isF = false;
+	int i = 0;
+
+	while (str[i] && isdigit(str[i]))
+	{
+		isLeft = true;
+		i++;
+	}
+	if (!str[i])
+		return false;
+
+	if (str[i] && str[i] == '.')
+	{
+		isDot = true;
+		i++;
+	}
+	else
+		return false;
+
+	while (str[i] && isdigit(str[i]))
+	{
+		isRight = true;
+		i++;
+	}
+	if (!str[i])
+		return false;
+
+	if (str[i] && str[i] == 'f')
+	{
+		isF = true;
+		i++;
+	}
+	if (str[i])
+		return false;
+
+	if (!isLeft || !isDot || ! isRight || !isF)
+		return false;
+	
+
+	float floatNum = std::stof(str);
+	int integer = static_cast<int>(floatNum);
+
+	if (isprint(integer))
+		std::cout << "char: '" << static_cast<char>(integer) << "'" << std::endl;
+	else
+		std::cout << "char: " << "Non displayable" << std::endl;
+
+	std::cout << "int: " << integer << std::endl;
+	std::cout << "float: " << formatFloat(floatNum) << std::endl;
+	std::cout << "double: " << formatDouble(static_cast<double>(floatNum)) << std::endl;
+
+	return true;
 }
 
 bool convertDouble(std::string str)
 {
+	// bool isLeft = false;
+	// bool isRight = false;
+	// bool isDot = false;
+	// int i = 0;
+
+	// while (str[i] && isdigit(str[i]))
+	// {
+	// 	isLeft = true;
+	// 	i++;
+	// }
+	// if (!str[i])
+	// 	return false;
+
+	// if (str[i] && str[i] == '.')
+	// {
+	// 	isDot = true;
+	// 	i++;
+	// }
+	// else
+	// 	return false;
+
+	// while (str[i] && isdigit(str[i]))
+	// {
+	// 	isRight = true;
+	// 	i++;
+	// }
+	// if (!str[i])
+	// 	return false;
+
+	// if (str[i] && str[i] == 'f')
+	// 	isF = true;
+	
+	// if (!isLeft || !isDot || ! isRight || !isF)
+	// 	return false;
+
+	// float floatNum = std::stof(str);
+	// int integer = static_cast<int>(floatNum);
+
+	// if (isprint(integer))
+	// 	std::cout << "char: '" << static_cast<char>(integer) << "'" << std::endl;
+	// else
+	// 	std::cout << "char: " << "Non displayable" << std::endl;
+
+	// std::cout << "int: " << integer << std::endl;
+	// std::cout << "float: " << formatFloat(floatNum) << std::endl;
+	// std::cout << "double: " << formatDouble(static_cast<double>(floatNum)) << std::endl;
 	(void)str;
 	return false;
+	// return true;
 }
