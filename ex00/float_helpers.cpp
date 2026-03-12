@@ -12,6 +12,9 @@ static bool validateFloat(std::string str)
 	bool isF = false;
 	int i = 0;
 
+	if (str == "-inff" || str == "+inff" || str =="nanf")
+		return true;
+
 	if (str[i] && (str[i] == '+' || str[i] == '-'))
 		i++;
 
@@ -52,20 +55,33 @@ static bool validateFloat(std::string str)
 
 static void printFloat(std::string str)
 {
-	float floatNum = std::stof(str);
-	int integer = static_cast<int>(floatNum);
+	float floatNum;
+	int integer;
 
-	if (floatNum < 0 || floatNum > 127)
-		std::cout <<  "char: " << "Out of range" << std::endl;
-	else if (isprint(integer))
-		std::cout << "char: '" << static_cast<char>(integer) << "'" << std::endl;
-	else
-		std::cout << "char: " << "Non displayable" << std::endl;
+	floatNum = std::stof(str);
 
-	if (floatNum > -2147483648.0f && floatNum < 2147483647.0f)
-		std::cout << "int: " << "Out of range" << std::endl;
+	if (str == "-inff" || str == "+inff" || str =="nanf")
+	{
+		std::cout <<  "char: " << "imposible" << std::endl;
+		std::cout << "int: " << "imposible" << std::endl;
+	}
 	else
-		std::cout << "int: " << integer << std::endl;
+	{
+		integer = static_cast<int>(floatNum);
+
+		if (floatNum < 0 || floatNum > 127)
+			std::cout <<  "char: " << "Out of range" << std::endl;
+		else if (isprint(integer))
+			std::cout << "char: '" << static_cast<char>(integer) << "'" << std::endl;
+		else
+			std::cout << "char: " << "Non displayable" << std::endl;
+
+		if (floatNum < -2147483648.0f || floatNum > 2147483647.0f)
+			std::cout << "int: " << "Out of range" << std::endl;
+		else
+			std::cout << "int: " << integer << std::endl;
+	}
+
 
 	std::cout << "float: " << formatFloat(floatNum) << std::endl;
 	std::cout << "double: " << formatDouble(static_cast<double>(floatNum)) << std::endl;
@@ -89,12 +105,7 @@ bool convertFloat(std::string str)
 	if (validateFloat(str))
 	{
 		printFloat(str);
+		return true;
 	}
-	// else if (str == "-inff" || str == "+inff")
-
-
-
-
-
-	return true;
+	return false;
 }

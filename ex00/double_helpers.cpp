@@ -11,6 +11,9 @@ static bool validateDouble(std::string str)
 	bool isDot = false;
 	int i = 0;
 
+	if (str == "-inf" || str == "+inf" || str =="nan")
+		return true;
+
 	if (str[i] && (str[i] == '+' || str[i] == '-'))
 		i++;
 
@@ -43,20 +46,31 @@ static bool validateDouble(std::string str)
 
 static void printDouble(std::string str)
 {
-	double doubleNum = std::stod(str);
-	int integer = static_cast<int>(doubleNum);
+	double doubleNum;
+	int integer;
+	
+	doubleNum = std::stod(str);
 
-	if (doubleNum < 0 || doubleNum > 127)
-		std::cout <<  "char: " << "Out of range" << std::endl;
-	else if (isprint(integer))
-		std::cout << "char: '" << static_cast<char>(integer) << "'" << std::endl;
+	if (str == "-inf" || str == "+inf" || str =="nan")
+	{
+		std::cout <<  "char: " << "imposible" << std::endl;
+		std::cout << "int: " << "imposible" << std::endl;
+	}
 	else
-		std::cout << "char: " << "Non displayable" << std::endl;
+	{
+		integer = static_cast<int>(doubleNum);
+		if (doubleNum < 0 || doubleNum > 127)
+			std::cout <<  "char: " << "Out of range" << std::endl;
+		else if (isprint(integer))
+			std::cout << "char: '" << static_cast<char>(integer) << "'" << std::endl;
+		else
+			std::cout << "char: " << "Non displayable" << std::endl;
 
-	if (doubleNum > -2147483648.0 && doubleNum < 2147483647.0)
-		std::cout << "int: " << "Out of range" << std::endl;
-	else
-		std::cout << "int: " << integer << std::endl;
+		if (doubleNum < -2147483648.0 || doubleNum > 2147483647.0)
+			std::cout << "int: " << "Out of range" << std::endl;
+		else
+			std::cout << "int: " << integer << std::endl;
+	}
 	
 	std::cout << "float: " << formatFloat(static_cast<float>(doubleNum)) << std::endl;
 	std::cout << "double: " << formatDouble(doubleNum) << std::endl;
@@ -80,8 +94,5 @@ bool convertDouble(std::string str)
 		printDouble(str);
 		return true;
 	}
-	// else if (str == "-inf" || str == "+inf")
-	
-
 	return false;
 }
