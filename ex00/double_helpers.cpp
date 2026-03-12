@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iomanip>
 #include "convert_helpers.hpp"
+#include <cmath>
 
 static bool validateDouble(std::string str)
 {
@@ -51,7 +52,7 @@ static void printDouble(std::string str)
 	
 	doubleNum = std::stod(str);
 
-	if (str == "-inf" || str == "+inf" || str =="nan")
+	if (!std::isfinite(doubleNum))
 	{
 		std::cout <<  "char: " << "imposible" << std::endl;
 		std::cout << "int: " << "imposible" << std::endl;
@@ -79,11 +80,10 @@ static void printDouble(std::string str)
 std::string formatDouble(double num)
 {
 	std::ostringstream oss;
-	oss << std::setprecision(10) << num;
+	oss << std::setprecision(1) << std::fixed << num;
 	std::string result = oss.str();
 
-	if (result.find('.') == std::string::npos)
-		result.append(".0");
+
 	return result;
 }
 

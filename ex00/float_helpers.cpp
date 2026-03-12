@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <string>
 #include "convert_helpers.hpp"
+#include <cmath>
 
 static bool validateFloat(std::string str)
 {
@@ -60,7 +61,7 @@ static void printFloat(std::string str)
 
 	floatNum = std::stof(str);
 
-	if (str == "-inff" || str == "+inff" || str =="nanf")
+	if (!std::isfinite(floatNum))
 	{
 		std::cout <<  "char: " << "imposible" << std::endl;
 		std::cout << "int: " << "imposible" << std::endl;
@@ -90,11 +91,9 @@ static void printFloat(std::string str)
 std::string formatFloat(float num)
 {
 	std::ostringstream oss;
-	oss << std::setprecision(10) << num;
+	oss << std::setprecision(1) << std::fixed << num;
 	std::string result = oss.str();
 
-	if (result.find('.') == std::string::npos)
-		result.append(".0");
 	result.append("f");
 	return result;
 }

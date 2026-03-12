@@ -45,6 +45,20 @@ EXPECTED["100"]=$'char: \'d\'\nint: 100\nfloat: 100.0f\ndouble: 100.0'
 EXPECTED["1024"]=$'char: Non displayable\nint: 1024\nfloat: 1024.0f\ndouble: 1024.0'
 EXPECTED["999999999999999"]=$'Integer overflow error.'
 
+# Float tests
+EXPECTED["42.0f"]=$'char: \'*\'\nint: 42\nfloat: 42.0f\ndouble: 42.0'
+EXPECTED["42.5f"]=$'char: \'*\'\nint: 42\nfloat: 42.5f\ndouble: 42.5'
+EXPECTED["nanf"]=$'char: imposible\nint: imposible\nfloat: nanf\ndouble: nan'
+EXPECTED["+inff"]=$'char: imposible\nint: imposible\nfloat: inff\ndouble: inf'
+EXPECTED["-inff"]=$'char: imposible\nint: imposible\nfloat: -inff\ndouble: -inf'
+
+# Double tests
+EXPECTED["42.0"]=$'char: \'*\'\nint: 42\nfloat: 42.0f\ndouble: 42.0'
+EXPECTED["42.5"]=$'char: \'*\'\nint: 42\nfloat: 42.5f\ndouble: 42.5'
+EXPECTED["nan"]=$'char: imposible\nint: imposible\nfloat: nanf\ndouble: nan'
+EXPECTED["+inf"]=$'char: imposible\nint: imposible\nfloat: inff\ndouble: inf'
+EXPECTED["-inf"]=$'char: imposible\nint: imposible\nfloat: -inff\ndouble: -inf'
+
 
 print_title
 build
