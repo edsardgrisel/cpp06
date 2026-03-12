@@ -88,6 +88,9 @@ bool convertFloat(std::string str)
 	bool isF = false;
 	int i = 0;
 
+	if (str[i] && (str[i] == '+' || str[i] == '-'))
+		i++;
+
 	while (str[i] && isdigit(str[i]))
 	{
 		isLeft = true;
@@ -141,53 +144,68 @@ bool convertFloat(std::string str)
 
 bool convertDouble(std::string str)
 {
-	// bool isLeft = false;
-	// bool isRight = false;
-	// bool isDot = false;
-	// int i = 0;
-
-	// while (str[i] && isdigit(str[i]))
-	// {
-	// 	isLeft = true;
-	// 	i++;
-	// }
-	// if (!str[i])
-	// 	return false;
-
-	// if (str[i] && str[i] == '.')
-	// {
-	// 	isDot = true;
-	// 	i++;
-	// }
-	// else
-	// 	return false;
-
-	// while (str[i] && isdigit(str[i]))
-	// {
-	// 	isRight = true;
-	// 	i++;
-	// }
-	// if (!str[i])
-	// 	return false;
-
-	// if (str[i] && str[i] == 'f')
-	// 	isF = true;
+	bool isLeft = false;
+	bool isRight = false;
+	bool isDot = false;
+	int i = 0;
 	
-	// if (!isLeft || !isDot || ! isRight || !isF)
-	// 	return false;
+	if (str[i] && (str[i] == '+' || str[i] == '-'))
+		i++;
 
-	// float floatNum = std::stof(str);
-	// int integer = static_cast<int>(floatNum);
+	while (str[i] && isdigit(str[i]))
+	{
+		isLeft = true;
+		i++;
+	}
+	if (!str[i])
+		return false;
 
-	// if (isprint(integer))
-	// 	std::cout << "char: '" << static_cast<char>(integer) << "'" << std::endl;
-	// else
-	// 	std::cout << "char: " << "Non displayable" << std::endl;
+	if (str[i] && str[i] == '.')
+	{
+		isDot = true;
+		i++;
+	}
+	else
+		return false;
 
-	// std::cout << "int: " << integer << std::endl;
-	// std::cout << "float: " << formatFloat(floatNum) << std::endl;
-	// std::cout << "double: " << formatDouble(static_cast<double>(floatNum)) << std::endl;
-	(void)str;
-	return false;
-	// return true;
+	while (str[i] && isdigit(str[i]))
+	{
+		isRight = true;
+		i++;
+	}
+	if (str[i])
+		return false;
+
+	if (!isLeft || !isDot || ! isRight)
+		return false;
+
+	double doubleNum = std::stod(str);
+	int integer = static_cast<int>(doubleNum);
+
+	if (isprint(integer))
+		std::cout << "char: '" << static_cast<char>(integer) << "'" << std::endl;
+	else
+		std::cout << "char: " << "Non displayable" << std::endl;
+
+	std::cout << "int: " << integer << std::endl;
+	std::cout << "float: " << formatFloat(static_cast<float>(doubleNum)) << std::endl;
+	std::cout << "double: " << formatDouble(doubleNum) << std::endl;
+
+	return true;
 }
+
+// bool convertPsuedoLiterals(std::string str)
+// {
+// 	double doubleNum = std::stod(str);
+// 	int integer = static_cast<int>(doubleNum);
+
+// 	if (isprint(integer))
+// 		std::cout << "char: '" << static_cast<char>(integer) << "'" << std::endl;
+// 	else
+// 		std::cout << "char: " << "Non displayable" << std::endl;
+
+// 	std::cout << "int: " << integer << std::endl;
+// 	std::cout << "float: " << formatFloat(static_cast<float>(doubleNum)) << std::endl;
+// 	std::cout << "double: " << formatDouble(doubleNum) << std::endl;
+// 	return true;
+// }
